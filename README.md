@@ -1,52 +1,83 @@
 # AutoStack AI
 
-Type one sentence. Get a complete full-stack app.
+A multi-agent Claude system that converts a natural language app description into a complete Flutter + Firebase + ML codebase.
 
-Built for the BITS Pilani Claude Hackathon.
+## How It Works
 
-## How to Run
+```
+You describe your app → Planner designs it → Builder codes it → ML agent handles AI features
+```
 
-1. Install Claude Code: npm install -g @anthropic-ai/claude-code
-2. Open this folder in Claude Code
-3. Type: Build a [your app idea]
-4. Watch it build automatically
+## Quickstart
 
-## Example Prompts
-
-- Build a food delivery app
-- Build a hospital appointment booking app
-- Build a carbon footprint tracker
-- Build a stock portfolio tracker
-- Build a fitness coaching app
+1. Open this project in Claude (with MCP enabled)
+2. Describe your app — e.g.:
+   > "Build a grocery delivery app with user login, product listings, cart, and order tracking"
+3. AutoStack will ask any clarifying questions, then generate the full codebase
 
 ## What Gets Generated
 
-- Flutter mobile app — all screens, navigation, state management
-- Firebase backend — Firestore, Auth, Storage, Security Rules
-- ML inference layer — on-device TFLite or cloud Gemini or custom FastAPI
-- Docker container — ML deployment
-- CI/CD pipelines — GitHub Actions
-- Makefile — developer shortcuts
+- Complete Flutter project (feature-first clean architecture)
+- Firebase Auth, Firestore, Storage, Functions setup
+- Firestore and Storage security rules
+- Riverpod state management
+- GoRouter navigation
+- GitHub Actions CI/CD
+- Makefile for local dev
+- ML integration (on-device TFLite or Cloud Functions) if needed
 
-## Stack
+## Project Structure
 
-- Frontend:  Flutter 3.22+ / Dart 3.4+
-- Backend:   Firebase Firestore, Auth, Storage, Functions
-- State:     Riverpod 2.x
-- Navigation: go_router 13.x
-- ML:        TFLite / Gemini / Scikit-learn + FastAPI
-- DevOps:    Docker + GitHub Actions
+```
+AUTOSTACK_AI/
+  .claude/
+    agents/
+      planner.md       ← orchestrator: reads prompt, writes system_plan.json
+      builder.md       ← Flutter + Firebase + DevOps
+      ml.md            ← ML pipeline (TFLite / Cloud / hybrid)
+    skills/
+      error_handler.md ← shared error resolution
+      stack_guide.md   ← tech stack reference (arch + Firebase + models)
+    workflows/
+      main.md          ← entry point: planner → builder → ml
+  mcp.json             ← MCP server + agent config
+  claude.md            ← Claude's top-level instructions
+  README.md
+```
 
-## Agent Pipeline
+## Tech Stack
 
-Architect → Firebase → Flutter → ML → DevOps
+| Layer | Technology |
+|---|---|
+| UI | Flutter 3.x |
+| State | Riverpod 2.x (code gen) |
+| Navigation | GoRouter |
+| Backend | Firebase (Auth, Firestore, Storage, Functions) |
+| ML (on-device) | TFLite Flutter / ML Kit |
+| ML (cloud) | Cloud Functions + TF.js-node |
+| CI/CD | GitHub Actions + Firebase Hosting |
 
-## Folder Structure
+## Requirements
 
-.claude/
-  agents/        — 5 specialist agents
-  workflows/     — 6 phase orchestration files
-  skills/        — 14 reusable skill files
-  mcp.json       — MCP server config
-claude.md        — entry point
-README.md        — this file
+- Claude with MCP filesystem access enabled
+- Flutter SDK 3.x
+- Firebase CLI (`npm install -g firebase-tools`)
+- Node.js 18+ (for Cloud Functions)
+- A Firebase project (or create one at console.firebase.google.com)
+
+## After Generation
+
+```bash
+# 1. Add your Firebase config files
+#    android/app/google-services.json
+#    ios/Runner/GoogleService-Info.plist
+
+# 2. Install dependencies
+make setup
+
+# 3. Run locally
+make run
+
+# 4. Deploy
+make deploy
+```

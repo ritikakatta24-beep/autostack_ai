@@ -1,0 +1,64 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "."
+      ],
+      "description": "Read and write project files. Used by all agents to generate code and read system_plan.json"
+    },
+    "flutter-tools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-flutter"
+      ],
+      "description": "Run flutter commands: pub get, build, test, analyze",
+      "env": {
+        "FLUTTER_ROOT": "${FLUTTER_ROOT}"
+      }
+    },
+    "firebase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-firebase"
+      ],
+      "description": "Deploy Firebase rules, functions, and hosting. Used by builder in Phase 3",
+      "env": {
+        "FIREBASE_TOKEN": "${FIREBASE_TOKEN}"
+      }
+    }
+  },
+
+  "agentDefaults": {
+    "maxTokens": 8192,
+    "temperature": 0.2,
+    "notes": "Low temperature keeps code generation deterministic. Increase to 0.5 only for planner when exploring app architecture."
+  },
+
+  "skillPaths": {
+    "error_handler": ".claude/skills/error_handler.md",
+    "stack_guide": ".claude/skills/stack_guide.md"
+  },
+
+  "agentPaths": {
+    "planner": ".claude/agents/planner.md",
+    "builder": ".claude/agents/builder.md",
+    "builder_ui": ".claude/agents/builder/builder_ui.md",
+    "builder_firebase": ".claude/agents/builder/builder_firebase.md",
+    "builder_devops": ".claude/agents/builder/builder_devops.md",
+    "ml": ".claude/agents/ml.md"
+  },
+
+  "workflowPaths": {
+    "main": ".claude/workflows/main.md"
+  },
+
+  "outputs": {
+    "plan": "system_plan.json",
+    "buildLog": "build_log.md"
+  }
+}
